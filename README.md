@@ -7,4 +7,4 @@ ffplay 源码调试
 调试：
 1.用vscode打开ffmpeg_study
 2.打开fftools/ffplay.c
-3.并已ffplay.c为目标，点击debuggin开始调试
+3.并已ffplay.c为目标，点击debugging开始调试
