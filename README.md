@@ -1,7 +1,8 @@
 ffplay 源码调试
 
 编译:
-1.  ./configure --enable-static --prefix=./MyBuild
+1.  ./configure --enable-static --prefix=./MyBuild --enable-libfreetype
+
 2.  make
 
 调试：
