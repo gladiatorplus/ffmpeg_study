@@ -5,6 +5,8 @@ ffplay 源码调试
 
 2.  make
 
+3.make install
+
 调试：
 1.用vscode打开ffmpeg_study
 2.打开fftools/ffplay.c
