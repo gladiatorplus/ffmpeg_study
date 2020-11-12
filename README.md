@@ -1,7 +1,7 @@
 ffplay 源码调试
 
 编译:
-1.  ./configure --enable-static --prefix=./MyBuild --enable-libfreetype
+1.  ./configure --enable-static --prefix=./MyBuild --enable-libfreetype --enable-filter=subtitles --enable-libass
 
 2.  make
 
