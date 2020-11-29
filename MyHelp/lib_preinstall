@@ -1,0 +1,9 @@
+1.apt install libsdl2-2.0-0 libsdl2-dev libavdevice-dev libva-x11-2 libva-dev libx264-dev libvdpau-dev libbz2-dev libcrystalhd-dev
+    libsoxr-dev libxvidcore-dev libx265-dev libwavpack-dev libvorbis-dev libtwolame-dev libspeex-dev libshine-dev libopus-dev libmp3lame-dev
+    libcodec2-dev libaom-dev libsnappy-dev libzvbi-dev libwebp-dev libvpx-dev libbluray-dev libchromaprint-dev libopenmpt-dev libgme-dev libvidstab-dev
+     libmysofa-dev librubberband-dev libbs2b-dev libcaca-dev libdc1394-22-dev libopenal-dev libjack-dev libiec61883-dev libavc1394-dev libopenjp2-7-dev
+     libdatrie-dev libflac-dev liblz4-dev libthai-dev libkeyutils-dev  libkrb5-dev libasyncns-dev libsystemd-dev libnuma-dev libunistring-dev libnorm-dev 
+     libpgm-dev libsodium-dev libfftw3-dev libcap-dev libcdio-dev
+2./usr/bin/ld: 找不到 -ltheoraenc -ltheoradec -lrsvg-2  -lzmq -lssh-gcrypt -lflite -lflite_cmu_us_slt -lflite_cmu_us_rms -lflite_cmu_us_kal16 -lflite_cmu_us_kal -lflite_cmu_us_awb
+    -llilv-0 -lcdio_cdda -lcdio_paranoia -lsndfile -lwrap -lcroco-0.6 -lpango-1.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lflite_cmulex
+    -lflite_usenglish -lsamplerate -lsratom-0  -lsord-0 -lserd-0 -lusb-1.0创建相应的软连接即可  例子：sudo ln -s libtheoraenc.so.1.1.2 libtheoraenc.so libcairo2-dev

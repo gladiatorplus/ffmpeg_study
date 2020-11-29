@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["-flags2", "+export_mvs", "-ss", "40", "~/Videos/3.mp4", "-vf", "codecview=mv=pf+bf+bb"],
+            "args": ["-loop","0","-flags2", "+export_mvs", "-ss", "40", "~/Videos/0.mp4", "-vf", "codecview=mv=pf+bf+bb"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
