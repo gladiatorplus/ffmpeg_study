@@ -1226,6 +1226,7 @@ typedef struct AVFormatContext {
     /**
      * A class for logging and @ref avoptions. Set by avformat_alloc_context().
      * Exports (de)muxer private options if they exist.
+     * 一个用于日志记录和@ref选项的类。由avformat_alloc_context（）设置。导出（de）muxer私有选项（如果存在）。
      */
     const AVClass *av_class;
 
@@ -1233,6 +1234,7 @@ typedef struct AVFormatContext {
      * The input container format.
      *
      * Demuxing only, set by avformat_open_input().
+     * 输入容器格式。仅demuxing，由avformat_open_input（）设置。
      */
     ff_const59 struct AVInputFormat *iformat;
 
@@ -1263,12 +1265,15 @@ typedef struct AVFormatContext {
      * Do NOT set this field if AVFMT_NOFILE flag is set in
      * iformat/oformat.flags. In such a case, the (de)muxer will handle
      * I/O in some other way and this field will be NULL.
+     * 格式化私有数据。这是一个特例,当且仅当iformat/信息隐私类不为空。
+     * -muxing：由avformat_write_header（）设置,-demuxing：由avformat_open_input（）设置
      */
     AVIOContext *pb;
 
     /* stream info */
     /**
      * Flags signalling stream properties. A combination of AVFMTCTX_*.
+     * 标记信号流属性。AVFMTCTX的组合。
      * Set by libavformat.
      */
     int ctx_flags;
@@ -1286,6 +1291,7 @@ typedef struct AVFormatContext {
      * - demuxing: streams are created by libavformat in avformat_open_input().
      *             If AVFMTCTX_NOHEADER is set in ctx_flags, then new streams may also
      *             appear in av_read_frame().
+     * 如果在ctx_标志中设置了AVFMTCTX_NOHEADER，则新的流也可能出现在av_read_frame（）中。
      * - muxing: streams are created by the user before avformat_write_header().
      *
      * Freed by libavformat in avformat_free_context().
@@ -1324,7 +1330,7 @@ typedef struct AVFormatContext {
      * Position of the first frame of the component, in
      * AV_TIME_BASE fractional seconds. NEVER set this value directly:
      * It is deduced from the AVStream values.
-     *
+     *不要直接设置此值，它是从AVStream值推导出来的
      * Demuxing only, set by libavformat.
      */
     int64_t start_time;
@@ -1334,7 +1340,7 @@ typedef struct AVFormatContext {
      * seconds. Only set this value if you know none of the individual stream
      * durations and also do not set any of them. This is deduced from the
      * AVStream values if not set.
-     *
+     *仅当您不知道任何单个流持续时间且不设置任何流持续时间时，才设置此值。如果未设置，则从AVStream值推断。
      * Demuxing only, set by libavformat.
      */
     int64_t duration;
@@ -1343,6 +1349,7 @@ typedef struct AVFormatContext {
      * Total stream bitrate in bit/s, 0 if not
      * available. Never set it directly if the file_size and the
      * duration are known as FFmpeg can compute it automatically.
+     * *总流比特率（位/秒），如果不可用，则为0。如果文件大小和持续时间被称为FFmpeg可以自动计算，则不要直接设置它。
      */
     int64_t bit_rate;
 
@@ -1386,6 +1393,7 @@ typedef struct AVFormatContext {
     /**
      * Maximum size of the data read from input for determining
      * the input container format.
+     * 从输入中读取的用于确定输入容器格式的数据的最大大小
      * Demuxing only, set by the caller before avformat_open_input().
      */
     int64_t probesize;
@@ -1393,8 +1401,9 @@ typedef struct AVFormatContext {
     /**
      * Maximum duration (in AV_TIME_BASE units) of the data read
      * from input in avformat_find_stream_info().
+     * 从avformat_find_stream_info（）的输入中读取的数据的最长持续时间
      * Demuxing only, set by the caller before avformat_find_stream_info().
-     * Can be set to 0 to let avformat choose using a heuristic.
+     * Can be set to 0 to let avformat choose using a heuristic(启发式的).
      */
     int64_t max_analyze_duration;
 
@@ -1429,6 +1438,8 @@ typedef struct AVFormatContext {
      * accurate seeking (depends on demuxer).
      * Demuxers for which a full in-memory index is mandatory will ignore
      * this.
+     * *用于每个流的索引的最大内存量（字节）。如果索引超过此大小，将根据需要丢弃条目以保持较小的大小。
+     * 这可能会导致搜索速度变慢或精度降低（取决于解复用器）。强制使用完整内存索引的Demuxer将忽略这一点。
      * - muxing: unused
      * - demuxing: set by user
      */
@@ -1437,6 +1448,7 @@ typedef struct AVFormatContext {
     /**
      * Maximum amount of memory in bytes to use for buffering frames
      * obtained from realtime capture devices.
+     * 用于缓冲从实时捕获设备获取的帧的最大内存量（字节）。
      */
     unsigned int max_picture_buffer;
 
@@ -1448,6 +1460,9 @@ typedef struct AVFormatContext {
      * in the trailer.  To write chapters in the trailer, nb_chapters
      * must be zero when write_header is called and non-zero when
      * write_trailer is called.
+     * *AVChapter数组中的章节数。当muxing时，章节通常写在文件头中，因此nb_chapters通常应该在调用write_header之前初始化。
+     * 一些muxer（例如mov和mkv）也可以在trailer中写章节。
+     * 要在尾部写入章节，当调用write_header时nb_chapters必须为零，在调用write_trainer时nb_chapters必须为非零。
      * - muxing: set by user
      * - demuxing: set by libavformat
      */
@@ -1468,6 +1483,7 @@ typedef struct AVFormatContext {
      * Start time of the stream in real world time, in microseconds
      * since the Unix epoch (00:00 1st January 1970). That is, pts=0 in the
      * stream was captured at this real world time.
+     * 流中的pts=0是在这个真实世界时间捕获的
      * - muxing: Set by the caller before avformat_write_header(). If set to
      *           either 0 or AV_NOPTS_VALUE, then the current wall-time will
      *           be used.
@@ -1480,6 +1496,7 @@ typedef struct AVFormatContext {
     /**
      * The number of frames used for determining the framerate in
      * avformat_find_stream_info().
+     * 在avformat_find_stream_info（）中用于确定帧速率的帧数。
      * Demuxing only, set by the caller before avformat_find_stream_info().
      */
     int fps_probe_size;
@@ -1499,6 +1516,7 @@ typedef struct AVFormatContext {
      * (mainly useful for AVFMT_NOFILE formats). The callback
      * should also be passed to avio_open2() if it's used to
      * open the file.
+     * I/O层的自定义中断回调
      */
     AVIOInterruptCB interrupt_callback;
 
@@ -1510,6 +1528,7 @@ typedef struct AVFormatContext {
 
     /**
      * Maximum buffering duration for interleaving.
+     * 交错的最大缓冲持续时间。
      *
      * To ensure all the streams are interleaved correctly,
      * av_interleaved_write_frame() will wait until it has at least one packet
@@ -1521,6 +1540,11 @@ typedef struct AVFormatContext {
      * first and the last packet in the muxing queue, above which libavformat
      * will output a packet regardless of whether it has queued a packet for all
      * the streams.
+     * 为了确保所有的流都被正确地交错，av_interleaved_write_frame（）将等待，直到每个流至少有一个数据包，
+     * 然后才实际将任何数据包写入输出文件。
+     * 当一些流是“稀疏”的（即，连续的数据包之间有很大的间隔），这可能导致过度的缓冲。
+     * 此字段指定muxing队列中第一个和最后一个数据包的时间戳之间的最大差异，在该差异之上，
+     * libavformat将输出一个数据包，而不管它是否为所有流排队。
      *
      * Muxing only, set by the caller before avformat_write_header().
      */
@@ -1539,6 +1563,7 @@ typedef struct AVFormatContext {
      * - demuxing: may be set by the demuxer in avformat_open_input(),
      *   avformat_find_stream_info() and av_read_frame(). Flags must be cleared
      *   by the user once the event has been handled.
+     * 用于用户检测文件上发生的事件的标志。事件处理完毕后，用户必须清除标志
      * - muxing: may be set by the user after avformat_write_header() to
      *   indicate a user-triggered event.  The muxer will clear the flags for
      *   events it has handled in av_[interleaved]_write_frame().
@@ -1554,6 +1579,7 @@ typedef struct AVFormatContext {
 
     /**
      * Maximum number of packets to read while waiting for the first timestamp.
+     * 等待第一个读取的最大时间戳的数据包数
      * Decoding only.
      */
     int max_ts_probe;
@@ -1579,6 +1605,7 @@ typedef struct AVFormatContext {
     /**
      * Audio preload in microseconds.
      * Note, not all formats support this and unpredictable things may happen if it is used when not supported.
+     * 音频预加载（以微秒为单位）。请注意，并非所有格式都支持此功能，如果在不支持时使用它，则可能会发生不可预知的情况。
      * - encoding: Set by user
      * - decoding: unused
      */
@@ -1587,7 +1614,9 @@ typedef struct AVFormatContext {
     /**
      * Max chunk time in microseconds.
      * Note, not all formats support this and unpredictable things may happen if it is used when not supported.
-     * - encoding: Set by user
+     *以微秒为单位的最大块时间。
+     *请注意，并非所有格式都支持此功能，如果在不支持时使用它，则可能会发生不可预知的情况。
+     *  - encoding: Set by user
      * - decoding: unused
      */
     int max_chunk_duration;
@@ -1603,6 +1632,7 @@ typedef struct AVFormatContext {
     /**
      * forces the use of wallclock timestamps as pts/dts of packets
      * This has undefined results in the presence of B frames.
+     * 强制使用wallclock时间戳作为数据包的pts/dts。这在B帧的存在下有未定义的结果。
      * - encoding: unused
      * - decoding: Set by user
      */
@@ -1625,6 +1655,7 @@ typedef struct AVFormatContext {
 
     /**
      * Skip initial bytes when opening stream
+     * 打开流时跳过初始字节
      * - encoding: unused
      * - decoding: Set by user
      */
@@ -1632,6 +1663,7 @@ typedef struct AVFormatContext {
 
     /**
      * Correct single timestamp overflows
+     * 更正单个时间戳溢出
      * - encoding: unused
      * - decoding: Set by user
      */
@@ -1639,6 +1671,7 @@ typedef struct AVFormatContext {
 
     /**
      * Force seeking to any (also non key) frames.
+     * 强制搜索任何（也是非关键帧）帧
      * - encoding: unused
      * - decoding: Set by user
      */
@@ -1646,6 +1679,7 @@ typedef struct AVFormatContext {
 
     /**
      * Flush the I/O context after each packet.
+     * 在每个数据包之后刷新I/O上下文。
      * - encoding: Set by user
      * - decoding: unused
      */
@@ -1654,6 +1688,7 @@ typedef struct AVFormatContext {
     /**
      * format probing score.
      * The maximal score is AVPROBE_SCORE_MAX, its set when the demuxer probes
+     * 最大分数是AVPROBE_score_MAX，它是在demuxer探测时设置的
      * the format.
      * - encoding: unused
      * - decoding: set by avformat, read by user
@@ -1662,6 +1697,7 @@ typedef struct AVFormatContext {
 
     /**
      * number of bytes to read maximally to identify format.
+     * 用于标识格式的最大读取字节数。
      * - encoding: unused
      * - decoding: set by user
      */
@@ -1670,6 +1706,7 @@ typedef struct AVFormatContext {
     /**
      * ',' separated list of allowed decoders.
      * If NULL then all are allowed
+     * 允许解码器的单独列表。如果为空，则允许全部
      * - encoding: unused
      * - decoding: set by user
      */
@@ -1686,11 +1723,12 @@ typedef struct AVFormatContext {
     /**
      * An opaque field for libavformat internal usage.
      * Must not be accessed in any way by callers.
+     * libavformat内部使用的不透明字段。调用者不得以任何方式访问。
      */
     AVFormatInternal *internal;
 
     /**
-     * IO repositioned flag.
+     * IO repositioned(重新定位) flag.
      * This is set by avformat when the underlaying IO context read pointer
      * is repositioned, for example when doing byte based seeking.
      * Demuxers can use the flag to detect such changes.
@@ -1699,6 +1737,7 @@ typedef struct AVFormatContext {
 
     /**
      * Forced video codec.
+     * 强制视频编解码器。
      * This allows forcing a specific decoder, even when there are multiple with
      * the same codec_id.
      * Demuxing: Set by user
@@ -1731,6 +1770,7 @@ typedef struct AVFormatContext {
 
     /**
      * Number of bytes to be written as padding in a metadata header.
+     * 要在元数据标头中作为填充写入的字节数
      * Demuxing: Unused.
      * Muxing: Set by user via av_format_set_metadata_header_padding.
      */
@@ -1744,6 +1784,7 @@ typedef struct AVFormatContext {
 
     /**
      * Callback used by devices to communicate with application.
+     * 设备用于与应用程序通信的回调。
      */
     av_format_control_message control_message_cb;
 
@@ -1791,6 +1832,7 @@ typedef struct AVFormatContext {
 
     /**
      * ',' separated list of allowed protocols.
+     * 允许协议的单独列表。
      * - encoding: unused
      * - decoding: set by user
      */
@@ -1840,6 +1882,7 @@ typedef struct AVFormatContext {
 
     /**
      * Skip duration calcuation in estimate_timings_from_pts.
+     * 使用estimate_timings_from_pts跳过持续时间计算
      * - encoding: unused
      * - decoding: set by user
      */
