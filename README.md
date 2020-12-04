@@ -1,7 +1,11 @@
 ffplay 源码调试
+
 环境安装：
+
 推荐使用UOS作为开发环境。且此环境配置是在UOS下完成。
+
 1.打开ffmpeg_study/MyHelp,复制lib_preinstall的文本到命令行执行，
+
 2.若此时还存在ld错误。请检查/usr/下的相应的动态库是否格式为.so形式。若不是，则参照Ln-lib.log文件创建链接相应的.so文件.
 
 编译:
