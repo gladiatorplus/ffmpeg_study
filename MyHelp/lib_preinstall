@@ -3,7 +3,14 @@
     libcodec2-dev libaom-dev libsnappy-dev libzvbi-dev libwebp-dev libvpx-dev libbluray-dev libchromaprint-dev libopenmpt-dev libgme-dev libvidstab-dev
      libmysofa-dev librubberband-dev libbs2b-dev libcaca-dev libdc1394-22-dev libopenal-dev libjack-dev libiec61883-dev libavc1394-dev libopenjp2-7-dev
      libdatrie-dev libflac-dev liblz4-dev libthai-dev libkeyutils-dev  libkrb5-dev libasyncns-dev libsystemd-dev libnuma-dev libunistring-dev libnorm-dev 
-     libpgm-dev libsodium-dev libfftw3-dev libcap-dev libcdio-dev libasound2-dev 
+     libpgm-dev libsodium-dev libfftw3-dev libcap-dev libcdio-dev libasound2-dev libx11-dev libsndio-dev libxext-dev  libxcb-shm0-dev libxcb-render0-dev 
+     libxcb-xfixes0-dev libxcb-shape0-dev liblzma-dev libraw1394-dev libcrystalhd-dev libvdpau-dev libxv-dev libx264-dev libavc1394-dev libiec61883-dev 
+     libjack-dev libopenal-dev  libdc1394-22-dev libcaca-dev libpulse-dev libbs2b-dev librubberband-dev libmysofa-dev libfribidi-dev libvidstab-dev 
+     libzmq3-dev libfontconfig1-dev libfreetype6-dev libgme-dev libopenmpt-dev libchromaprint-dev libbluray-dev libssh-gcrypt-dev libvpx-dev libwebp-dev 
+     libcairo2-dev libzvbi-dev libsnappy-dev libaom-dev libcodec2-dev libgsm1-dev libopenjp2-7-dev libopus-dev libshine-dev libspeex-dev libtwolame-dev 
+     libvorbis-dev libwavpack-dev libx265-dev libxvidcore-dev libsoxr-dev libxcursor-dev libxinerama-dev libxi-dev libxrandr-dev libxss-dev libxkbcommon-dev 
+     libcdio-dev libusb-1.0-0-dev libsamplerate0-dev libfftw3-dev libharfbuzz-dev libunistring-dev librust-gdk-pixbuf-sys-dev libnuma-dev libudev-dev 
+     libsystemd-dev libwrap0-dev libsndfile1-dev libasyncns-dev libgraphite2-dev libkeyutils-dev libthai-dev libflac-dev libdatrie-dev libass-dev
      
 2./usr/bin/ld: 找不到 -ltheoraenc -ltheoradec -lrsvg-2  -lzmq -lssh-gcrypt -lflite -lflite_cmu_us_slt -lflite_cmu_us_rms -lflite_cmu_us_kal16 -lflite_cmu_us_kal -lflite_cmu_us_awb
     -llilv-0 -lcdio_cdda -lcdio_paranoia -lsndfile -lwrap -lcroco-0.6 -lpango-1.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lflite_cmulex
